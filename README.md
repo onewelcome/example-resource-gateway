@@ -22,7 +22,6 @@ Token Server is exposed as resource. So in this example the Token Server acts as
 
 ## Configuration
 
-|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Property                                  | Description                                                                                                                                                                                                    |
 |-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | resource.gateway.tokenServer.clientId     | The client id of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html)     |
