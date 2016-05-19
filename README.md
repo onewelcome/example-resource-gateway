@@ -20,6 +20,18 @@ Token Server is exposed as resource. So in this example the Token Server acts as
                                                                                                        +-----------------+ 
 ```
 
+## Configuration
+
+|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Property                                  | Description                                                                                                                                                                                                    |
+|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| resource.gateway.tokenServer.clientId     | The client id of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html)     |
+| resource.gateway.tokenServer.clientSecret | The client secret of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html) |
+| resource.gateway.tokenServer.baseUri      | The token server base uri.                                                                                                                                                                                     | 
+| device.api.serverRoot                     | The base uri of the resource server (Token Server in this example).                                                                                                                                            |
+| device.api.username                       | The basic authentication username used to access the api.                                                                                                                                                      |
+| device.api.password                       | The basic authentication password used to access the api.                                                                                                                                                      | 
+
 ## Building the sourcecode
 
 `mvn clean install`
