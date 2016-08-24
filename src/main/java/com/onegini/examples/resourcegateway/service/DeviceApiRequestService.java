@@ -1,6 +1,7 @@
 package com.onegini.examples.resourcegateway.service;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.OK;
 
 import javax.annotation.Resource;
 
@@ -29,7 +30,9 @@ public class DeviceApiRequestService {
     final HttpEntity<?> requestEntity = createRequestEntity();
     final String uri = deviceApiConfig.getServerRoot() + DEVICE_API_PATH;
 
-    return restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
+    ResponseEntity<Devices> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
+    final Devices devices = response.getBody();
+    return new ResponseEntity<>(devices, OK);
   }
 
   private HttpEntity<?> createRequestEntity() {
