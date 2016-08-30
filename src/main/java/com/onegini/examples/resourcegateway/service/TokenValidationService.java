@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onegini.examples.resourcegateway.config.TokenServerConfig;
 import com.onegini.examples.resourcegateway.model.TokenValidationResult;
+import com.onegini.examples.resourcegateway.model.TokenValidationResultBuilder;
 import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
 
 @Service
@@ -93,8 +94,17 @@ public class TokenValidationService {
   private TokenValidationResult createTokenValidationResult(final Map<String, String> jsonMap) {
     final String userId = jsonMap.get("reference_id");
     final String scopes = jsonMap.get("scope");
+    final String applicationVersion = jsonMap.get("app_version");
+    final String applicationIdentifier = jsonMap.get("app_identifier");
+    final String applicationPlatform = jsonMap.get("app_platform");
 
-    return new TokenValidationResult(userId, scopes);
+    return new TokenValidationResultBuilder()
+        .withUserId(userId)
+        .withScopes(scopes)
+        .withApplicationVersion(applicationVersion)
+        .withApplicationIdentifier(applicationIdentifier)
+        .withApplicationPlatform(applicationPlatform)
+        .build();
   }
 
 }
