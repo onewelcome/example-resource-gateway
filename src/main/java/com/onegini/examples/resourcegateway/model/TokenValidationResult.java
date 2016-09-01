@@ -1,7 +1,11 @@
 package com.onegini.examples.resourcegateway.model;
 
 public class TokenValidationResult {
-  private String applicationIdentifier, applicationPlatform, applicationVersion, userId, scopes;
+  private String applicationIdentifier;
+  private String applicationPlatform;
+  private String applicationVersion;
+  private String userId;
+  private String scopes;
 
   public String getApplicationIdentifier() {
     return applicationIdentifier;
