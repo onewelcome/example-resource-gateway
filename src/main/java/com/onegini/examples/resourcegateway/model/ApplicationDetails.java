@@ -1,11 +1,19 @@
 package com.onegini.examples.resourcegateway.model;
 
-public class TokenValidationResult {
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ApplicationDetails {
+
   private String applicationIdentifier;
   private String applicationPlatform;
   private String applicationVersion;
-  private String userId;
-  private String scopes;
+
+  public ApplicationDetails(final TokenValidationResult tokenValidationResult) {
+    setApplicationIdentifier(tokenValidationResult.getApplicationIdentifier());
+    setApplicationPlatform(tokenValidationResult.getApplicationPlatform());
+    setApplicationVersion(tokenValidationResult.getApplicationVersion());
+  }
 
   public String getApplicationIdentifier() {
     return applicationIdentifier;
@@ -29,21 +37,5 @@ public class TokenValidationResult {
 
   public void setApplicationVersion(final String applicationVersion) {
     this.applicationVersion = applicationVersion;
-  }
-
-  public String getUserId() {
-    return userId;
-  }
-
-  public void setUserId(final String userId) {
-    this.userId = userId;
-  }
-
-  public String getScopes() {
-    return scopes;
-  }
-
-  public void setScopes(final String scopes) {
-    this.scopes = scopes;
   }
 }
