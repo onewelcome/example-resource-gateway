@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onegini.examples.resourcegateway.model.ApplicationDetails;
-import com.onegini.examples.resourcegateway.model.TokenValidationResult;
+import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
 import com.onegini.examples.resourcegateway.service.AccessTokenExtractor;
 import com.onegini.examples.resourcegateway.service.DeviceApiRequestService;
 import com.onegini.examples.resourcegateway.service.ScopeValidationService;
-import com.onegini.examples.resourcegateway.service.tokenvalidation.TokenValidationService;
+import com.onegini.examples.resourcegateway.service.tokenintrospection.TokenIntrospectionService;
 
 @RestController
 @RequestMapping(value = "/resources")
 public class ResourcesController {
 
   @Resource
-  private TokenValidationService tokenValidationService;
+  private TokenIntrospectionService tokenIntrospectionService;
   @Resource
   private ScopeValidationService scopeValidationService;
   @Resource
@@ -35,22 +35,22 @@ public class ResourcesController {
   public ResponseEntity<?> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
 
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
-    final TokenValidationResult tokenValidationResult = tokenValidationService.validateAccessToken(accessToken);
+    final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
 
-    scopeValidationService.validateReadScopeGranted(tokenValidationResult.getScopes());
+    scopeValidationService.validateReadScopeGranted(tokenIntrospectionResult.getScopes());
 
-    return deviceApiRequestService.getDevices(tokenValidationResult.getUserId());
+    return deviceApiRequestService.getDevices(tokenIntrospectionResult.getUserId());
   }
 
   @RequestMapping(value = "/application-details", method = RequestMethod.GET)
   public ResponseEntity<?> getApplicationDetails(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
 
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
-    final TokenValidationResult tokenValidationResult = tokenValidationService.validateAccessToken(accessToken);
+    final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
 
-    scopeValidationService.validateApplicationDetailsScopeGranted(tokenValidationResult.getScopes());
+    scopeValidationService.validateApplicationDetailsScopeGranted(tokenIntrospectionResult.getScopes());
 
-    final ApplicationDetails applicationDetails = new ApplicationDetails(tokenValidationResult);
+    final ApplicationDetails applicationDetails = new ApplicationDetails(tokenIntrospectionResult);
     return new ResponseEntity<Object>(applicationDetails, OK);
   }
 

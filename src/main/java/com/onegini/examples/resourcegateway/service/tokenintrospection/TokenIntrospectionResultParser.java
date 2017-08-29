@@ -1,4 +1,4 @@
-package com.onegini.examples.resourcegateway.service.tokenvalidation;
+package com.onegini.examples.resourcegateway.service.tokenintrospection;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onegini.examples.resourcegateway.model.TokenValidationResult;
-import com.onegini.examples.resourcegateway.model.TokenValidationResultBuilder;
+import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
+import com.onegini.examples.resourcegateway.model.TokenIntrospectionResultBuilder;
 import com.onegini.examples.resourcegateway.model.exception.InvalidAccessTokenException;
 import com.onegini.examples.resourcegateway.model.exception.TokenServerException;
 
 @Service
-public class TokenValidationResultParser {
+public class TokenIntrospectionResultParser {
 
   @Resource
   private ObjectMapper objectMapper;
 
-  public TokenValidationResult parse(final ResponseEntity<String> response) {
+  public TokenIntrospectionResult parse(final ResponseEntity<String> response) {
 
     if (response.getStatusCode() != HttpStatus.OK) {
-      throw new InvalidAccessTokenException("Token validation request return status code: " + response.getStatusCode());
+      throw new InvalidAccessTokenException("Token introspection request return status code: " + response.getStatusCode());
     }
 
     final Map<String, Object> jsonMap = mapJsonResponse(response.getBody());
@@ -36,7 +36,7 @@ public class TokenValidationResultParser {
     final String applicationIdentifier = (String) jsonMap.get("app_identifier");
     final String applicationPlatform = (String) jsonMap.get("app_platform");
 
-    return new TokenValidationResultBuilder()
+    return new TokenIntrospectionResultBuilder()
         .withUserId(userId)
         .withScopes(scopes)
         .withApplicationVersion(applicationVersion)

@@ -1,4 +1,4 @@
-package com.onegini.examples.resourcegateway.service.tokenvalidation;
+package com.onegini.examples.resourcegateway.service.tokenintrospection;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
@@ -21,9 +21,7 @@ import com.onegini.examples.resourcegateway.model.exception.TokenServerException
 import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
 
 @Service
-public class TokenValidationRequestExecutor {
-  private static final String GRANT_TYPE = "grant_type";
-  private static final String VALIDATE_BEARER = "urn:innovation-district.com:oauth2:grant_type:validate_bearer";
+public class TokenIntrospectionRequestExecutor {
   private static final String TOKEN = "token";
 
   @Resource
@@ -33,7 +31,7 @@ public class TokenValidationRequestExecutor {
 
   public ResponseEntity<String> execute(final String accessToken) {
     final HttpEntity<?> entity = createRequestEntity(accessToken);
-    final String url = tokenServerConfig.getBaseUri() + "/token";
+    final String url = tokenServerConfig.getBaseUri() + "/api/v1/token/introspect";
 
     final ResponseEntity<String> response;
     try {
@@ -45,15 +43,14 @@ public class TokenValidationRequestExecutor {
   }
 
   private HttpEntity<?> createRequestEntity(final String accessToken) {
-    final HttpHeaders headers = createTokenValidationRequestHeaders();
+    final HttpHeaders headers = createTokenIntrospectionRequestHeaders();
 
     final MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-    formData.add(GRANT_TYPE, VALIDATE_BEARER);
     formData.add(TOKEN, accessToken);
     return new HttpEntity<Object>(formData, headers);
   }
 
-  private HttpHeaders createTokenValidationRequestHeaders() {
+  private HttpHeaders createTokenIntrospectionRequestHeaders() {
     final HttpHeaders headers = new HttpHeaders();
     final String authorizationHeaderValue = new BasicAuthenticationHeaderBuilder()
         .withUsername(tokenServerConfig.getClientId())

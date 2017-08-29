@@ -1,6 +1,6 @@
 package com.onegini.examples.resourcegateway.model;
 
-public class TokenValidationResult {
+public class TokenIntrospectionResult {
   private String applicationIdentifier;
   private String applicationPlatform;
   private String applicationVersion;

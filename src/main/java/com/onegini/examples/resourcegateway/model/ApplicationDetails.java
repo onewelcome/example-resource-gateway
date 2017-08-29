@@ -9,10 +9,10 @@ public class ApplicationDetails {
   private String applicationPlatform;
   private String applicationVersion;
 
-  public ApplicationDetails(final TokenValidationResult tokenValidationResult) {
-    setApplicationIdentifier(tokenValidationResult.getApplicationIdentifier());
-    setApplicationPlatform(tokenValidationResult.getApplicationPlatform());
-    setApplicationVersion(tokenValidationResult.getApplicationVersion());
+  public ApplicationDetails(final TokenIntrospectionResult tokenIntrospectionResult) {
+    setApplicationIdentifier(tokenIntrospectionResult.getApplicationIdentifier());
+    setApplicationPlatform(tokenIntrospectionResult.getApplicationPlatform());
+    setApplicationVersion(tokenIntrospectionResult.getApplicationVersion());
   }
 
   public String getApplicationIdentifier() {
