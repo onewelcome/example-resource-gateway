@@ -11,8 +11,8 @@ import com.onegini.examples.resourcegateway.model.exception.ScopeNotGrantedExcep
 @Service
 public class ScopeValidationService {
 
-  public static final String SCOPE_READ = "read";
-  public static final String SCOPE_APPLICATION_DETAILS = "application-details";
+  private static final String SCOPE_READ = "read";
+  private static final String SCOPE_APPLICATION_DETAILS = "application-details";
 
   public void validateReadScopeGranted(final String grantedScopes) {
     validateScopeGranted(grantedScopes, SCOPE_READ);
