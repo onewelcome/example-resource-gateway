@@ -1,49 +1,103 @@
 package com.onegini.examples.resourcegateway.model;
 
 public class TokenIntrospectionResult {
-  private String applicationIdentifier;
-  private String applicationPlatform;
-  private String applicationVersion;
-  private String userId;
-  private String scopes;
+  private boolean active;
+  private String scope;
+  private String clientId;
+  private String tokenType;
+  private int exp;
+  private int iat;
+  private int nbf;
+  private String sub;
+  private String iss;
+  private int usageLimit;
+  private TokenType[] amr;
 
-  public String getApplicationIdentifier() {
-    return applicationIdentifier;
+  public boolean isActive() {
+    return active;
   }
 
-  public void setApplicationIdentifier(final String applicationIdentifier) {
-    this.applicationIdentifier = applicationIdentifier;
+  public void setActive(final boolean active) {
+    this.active = active;
   }
 
-  public String getApplicationPlatform() {
-    return applicationPlatform;
+  public String getScope() {
+    return scope;
   }
 
-  public void setApplicationPlatform(final String applicationPlatform) {
-    this.applicationPlatform = applicationPlatform;
+  public void setScope(final String scope) {
+    this.scope = scope;
   }
 
-  public String getApplicationVersion() {
-    return applicationVersion;
+  public String getClientId() {
+    return clientId;
   }
 
-  public void setApplicationVersion(final String applicationVersion) {
-    this.applicationVersion = applicationVersion;
+  public void setClientId(final String clientId) {
+    this.clientId = clientId;
   }
 
-  public String getUserId() {
-    return userId;
+  public String getTokenType() {
+    return tokenType;
   }
 
-  public void setUserId(final String userId) {
-    this.userId = userId;
+  public void setTokenType(final String tokenType) {
+    this.tokenType = tokenType;
   }
 
-  public String getScopes() {
-    return scopes;
+  public int getExp() {
+    return exp;
   }
 
-  public void setScopes(final String scopes) {
-    this.scopes = scopes;
+  public void setExp(final int exp) {
+    this.exp = exp;
+  }
+
+  public int getIat() {
+    return iat;
+  }
+
+  public void setIat(final int iat) {
+    this.iat = iat;
+  }
+
+  public int getNbf() {
+    return nbf;
+  }
+
+  public void setNbf(final int nbf) {
+    this.nbf = nbf;
+  }
+
+  public String getSub() {
+    return sub;
+  }
+
+  public void setSub(final String sub) {
+    this.sub = sub;
+  }
+
+  public String getIss() {
+    return iss;
+  }
+
+  public void setIss(final String iss) {
+    this.iss = iss;
+  }
+
+  public int getUsageLimit() {
+    return usageLimit;
+  }
+
+  public void setUsageLimit(final int usageLimit) {
+    this.usageLimit = usageLimit;
+  }
+
+  public TokenType[] getAmr() {
+    return amr;
+  }
+
+  public void setAmr(final TokenType[] amr) {
+    this.amr = amr;
   }
 }

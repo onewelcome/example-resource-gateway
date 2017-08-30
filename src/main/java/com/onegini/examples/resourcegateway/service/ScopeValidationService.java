@@ -1,7 +1,5 @@
 package com.onegini.examples.resourcegateway.service;
 
-import static org.apache.commons.lang3.StringUtils.SPACE;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -13,6 +11,7 @@ public class ScopeValidationService {
 
   private static final String SCOPE_READ = "read";
   private static final String SCOPE_APPLICATION_DETAILS = "application-details";
+  private static final String SCOPE_SEPARATOR = " ";
 
   public void validateReadScopeGranted(final String grantedScopes) {
     validateScopeGranted(grantedScopes, SCOPE_READ);
@@ -27,7 +26,7 @@ public class ScopeValidationService {
       throw new ScopeNotGrantedException("No scopes granted to access token");
     }
 
-    final String[] scopes = StringUtils.split(grantedScopes, SPACE);
+    final String[] scopes = StringUtils.split(grantedScopes, SCOPE_SEPARATOR);
     final boolean scopeNotGranted = !ArrayUtils.contains(scopes, scope);
     if(scopeNotGranted) {
       final String message = String.format("Scope %s not granted to provided access token.", scope);

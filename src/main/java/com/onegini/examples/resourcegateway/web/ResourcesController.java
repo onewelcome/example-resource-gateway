@@ -16,6 +16,7 @@ import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
 import com.onegini.examples.resourcegateway.service.AccessTokenExtractor;
 import com.onegini.examples.resourcegateway.service.DeviceApiRequestService;
 import com.onegini.examples.resourcegateway.service.ScopeValidationService;
+import com.onegini.examples.resourcegateway.service.TokenTypeValidationService;
 import com.onegini.examples.resourcegateway.service.tokenintrospection.TokenIntrospectionService;
 
 @RestController
@@ -30,6 +31,10 @@ public class ResourcesController {
   private DeviceApiRequestService deviceApiRequestService;
   @Resource
   private AccessTokenExtractor accessTokenExtractor;
+  @Resource
+  private TokenTypeValidationService tokenTypeValidationService;
+
+  private static final String DECORATION = "✨";
 
   @RequestMapping(value = "/devices", method = RequestMethod.GET)
   public ResponseEntity<?> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
@@ -37,9 +42,10 @@ public class ResourcesController {
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
 
-    scopeValidationService.validateReadScopeGranted(tokenIntrospectionResult.getScopes());
+    scopeValidationService.validateReadScopeGranted(tokenIntrospectionResult.getScope());
+    tokenTypeValidationService.validateNoImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
 
-    return deviceApiRequestService.getDevices(tokenIntrospectionResult.getUserId());
+    return deviceApiRequestService.getDevices(tokenIntrospectionResult.getSub());
   }
 
   @RequestMapping(value = "/application-details", method = RequestMethod.GET)
@@ -48,10 +54,24 @@ public class ResourcesController {
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
 
-    scopeValidationService.validateApplicationDetailsScopeGranted(tokenIntrospectionResult.getScopes());
+    scopeValidationService.validateApplicationDetailsScopeGranted(tokenIntrospectionResult.getScope());
+    tokenTypeValidationService.validateNoImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
 
-    final ApplicationDetails applicationDetails = new ApplicationDetails(tokenIntrospectionResult);
+    final ApplicationDetails applicationDetails = ApplicationDetails.fromIssuer(tokenIntrospectionResult.getIss());
+
     return new ResponseEntity<Object>(applicationDetails, OK);
   }
 
+  @RequestMapping(value = "/user-id-decorated", method = RequestMethod.GET)
+  public ResponseEntity<?> getFoo(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+    final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
+    final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
+
+    tokenTypeValidationService.validateImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
+
+    final String userId = tokenIntrospectionResult.getSub();
+    final String responseText = DECORATION + " " + userId + " " + DECORATION;
+
+    return new ResponseEntity<>(responseText, OK);
+  }
 }
