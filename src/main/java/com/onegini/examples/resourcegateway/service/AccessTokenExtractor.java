@@ -2,8 +2,6 @@ package com.onegini.examples.resourcegateway.service;
 
 import static com.onegini.examples.resourcegateway.ResourceGatewayConstants.BEARER_PREFIX;
 
-import java.util.Optional;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

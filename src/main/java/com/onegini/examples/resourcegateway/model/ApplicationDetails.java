@@ -19,7 +19,7 @@ public class ApplicationDetails {
   public static ApplicationDetails fromIssuer(final String issuer) {
     final String[] details = StringUtils.split(issuer, SEPARATOR);
     final ApplicationDetails applicationDetails = new ApplicationDetails();
-    
+
     applicationDetails.setApplicationIdentifier(details[APP_ID_INDEX]);
     applicationDetails.setApplicationPlatform(details[APP_PLATFORM_INDEX]);
     applicationDetails.setApplicationVersion(details[APP_VERSION_INDEX]);

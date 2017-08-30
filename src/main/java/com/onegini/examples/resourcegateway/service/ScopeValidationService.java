@@ -28,7 +28,7 @@ public class ScopeValidationService {
 
     final String[] scopes = StringUtils.split(grantedScopes, SCOPE_SEPARATOR);
     final boolean scopeNotGranted = !ArrayUtils.contains(scopes, scope);
-    if(scopeNotGranted) {
+    if (scopeNotGranted) {
       final String message = String.format("Scope %s not granted to provided access token.", scope);
       throw new ScopeNotGrantedException(message);
     }
