@@ -63,7 +63,8 @@ public class ResourcesController {
   }
 
   @RequestMapping(value = "/user-id-decorated", method = RequestMethod.GET)
-  public ResponseEntity<?> getFoo(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  public ResponseEntity<?> getDecoratedUserId(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
 

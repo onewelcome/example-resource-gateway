@@ -30,7 +30,7 @@ public class DeviceApiRequestService {
     final HttpEntity<?> requestEntity = createRequestEntity();
     final String uri = deviceApiConfig.getServerRoot() + DEVICE_API_PATH;
 
-    ResponseEntity<Devices> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
+    final ResponseEntity<Devices> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
     final Devices devices = response.getBody();
     return new ResponseEntity<>(devices, OK);
   }
