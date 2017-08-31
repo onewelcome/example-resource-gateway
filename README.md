@@ -7,17 +7,17 @@ is validated via the Onegini Token Server. If the access token was proven to be 
 Token Server is exposed as resource. So in this example the Token Server acts as a resource server as well.
 
 ```
-  +-------------+                           +------------------+                                       +-----------------+                               
-  | Onegini SDK | ---- (1) get devices ---> | Resource Gateway |  ---- (2) validate access token --->  |  Token Server   |                               
-  |             |                           |                  |                                       |                 |                               
-  |             | <--- (6) user devices --- |                  |  <---- (3) validation response -----  |                 |                               
-  +-------------+                           +------------------+                                       +-----------------+    
+  +-------------+                           +------------------+                                          +-----------------+                               
+  | Onegini SDK | ---- (1) get devices ---> | Resource Gateway |  ---- (2) validate access token    --->  |  Token Server   |                               
+  |             |                           |                  |                                          |                 |                               
+  |             | <--- (6) user devices --- |                  |  <---- (3) introspection response -----  |                 |                               
+  +-------------+                           +------------------+                                          +-----------------+    
                                                ^     |
-                                               |     |                                                 +-----------------+ 
-                                               |     +------------------- (4) get user device ------>  | Resource Server | 
-                                               |                                                       | (Token Server)  | 
-                                               +--------------------------- (5) user devices --------  |                 |
-                                                                                                       +-----------------+ 
+                                               |     |                                                    +-----------------+ 
+                                               |     +------------------- (4) get user device --------->  | Resource Server | 
+                                               |                                                          | (Token Server)  | 
+                                               +--------------------------- (5) user devices -----------  |                 |
+                                                                                                          +-----------------+ 
 ```
 
 ## Configuration

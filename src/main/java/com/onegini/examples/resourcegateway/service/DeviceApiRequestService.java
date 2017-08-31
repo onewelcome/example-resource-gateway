@@ -19,7 +19,7 @@ import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilde
 @Service
 public class DeviceApiRequestService {
 
-  public static final String DEVICE_API_PATH = "/api/v2/users/{user_id}/devices";
+  private static final String DEVICE_API_PATH = "/api/v2/users/{user_id}/devices";
 
   @Resource
   private RestTemplate restTemplate;
@@ -30,7 +30,7 @@ public class DeviceApiRequestService {
     final HttpEntity<?> requestEntity = createRequestEntity();
     final String uri = deviceApiConfig.getServerRoot() + DEVICE_API_PATH;
 
-    ResponseEntity<Devices> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
+    final ResponseEntity<Devices> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
     final Devices devices = response.getBody();
     return new ResponseEntity<>(devices, OK);
   }

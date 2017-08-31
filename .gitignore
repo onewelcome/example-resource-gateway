@@ -1,3 +1,6 @@
-# Ignore IntelliJ IDEA project directory
+# IDEA project directory
 .idea/
 *.iml
+
+# Build directory
+target/

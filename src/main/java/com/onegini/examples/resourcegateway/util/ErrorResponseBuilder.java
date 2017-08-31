@@ -5,11 +5,8 @@ import static org.springframework.http.HttpHeaders.WWW_AUTHENTICATE;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.onegini.examples.resourcegateway.ResourceGatewayConstants;
 import com.onegini.examples.resourcegateway.model.ErrorResponse;
 
 public class ErrorResponseBuilder {
