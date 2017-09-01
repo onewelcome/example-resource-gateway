@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onegini.examples.resourcegateway.model.ApplicationDetails;
+import com.onegini.examples.resourcegateway.model.DecoratedUserId;
 import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
 import com.onegini.examples.resourcegateway.service.AccessTokenExtractor;
 import com.onegini.examples.resourcegateway.service.DeviceApiRequestService;
 import com.onegini.examples.resourcegateway.service.ScopeValidationService;
 import com.onegini.examples.resourcegateway.service.TokenTypeValidationService;
 import com.onegini.examples.resourcegateway.service.tokenintrospection.TokenIntrospectionService;
+import com.onegini.examples.resourcegateway.util.DecoratedUserIdBuilder;
 
 @RestController
 @RequestMapping(value = "/resources")
@@ -33,8 +35,6 @@ public class ResourcesController {
   private AccessTokenExtractor accessTokenExtractor;
   @Resource
   private TokenTypeValidationService tokenTypeValidationService;
-
-  private static final String DECORATION = "✨";
 
   @RequestMapping(value = "/devices", method = RequestMethod.GET)
   public ResponseEntity<?> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
@@ -70,9 +70,10 @@ public class ResourcesController {
 
     tokenTypeValidationService.validateImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
 
-    final String userId = tokenIntrospectionResult.getSub();
-    final String responseText = DECORATION + " " + userId + " " + DECORATION;
+    final DecoratedUserId decoratedUserId = new DecoratedUserIdBuilder()
+        .withUserId(tokenIntrospectionResult.getSub())
+        .build();
 
-    return new ResponseEntity<>(responseText, OK);
+    return new ResponseEntity<>(decoratedUserId, OK);
   }
 }
