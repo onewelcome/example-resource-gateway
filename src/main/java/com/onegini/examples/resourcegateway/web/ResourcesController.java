@@ -57,7 +57,8 @@ public class ResourcesController {
     scopeValidationService.validateApplicationDetailsScopeGranted(tokenIntrospectionResult.getScope());
     tokenTypeValidationService.validateNoImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
 
-    final ApplicationDetails applicationDetails = ApplicationDetails.fromIssuer(tokenIntrospectionResult.getIss());
+    final ApplicationDetails applicationDetails = new ApplicationDetails(tokenIntrospectionResult.getAppIdentifier(), tokenIntrospectionResult.getAppPlatform(),
+        tokenIntrospectionResult.getAppVersion());
 
     return new ResponseEntity<Object>(applicationDetails, OK);
   }
