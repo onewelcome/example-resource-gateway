@@ -1,30 +1,18 @@
 package com.onegini.examples.resourcegateway.model;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApplicationDetails {
 
-  private static final String SEPARATOR = " ";
-  private static final int APP_ID_INDEX = 0;
-  private static final int APP_PLATFORM_INDEX = 1;
-  private static final int APP_VERSION_INDEX = 2;
-
   private String applicationIdentifier;
   private String applicationPlatform;
   private String applicationVersion;
 
-  public static ApplicationDetails fromIssuer(final String issuer) {
-    final String[] details = StringUtils.split(issuer, SEPARATOR);
-    final ApplicationDetails applicationDetails = new ApplicationDetails();
-
-    applicationDetails.setApplicationIdentifier(details[APP_ID_INDEX]);
-    applicationDetails.setApplicationPlatform(details[APP_PLATFORM_INDEX]);
-    applicationDetails.setApplicationVersion(details[APP_VERSION_INDEX]);
-
-    return applicationDetails;
+  public ApplicationDetails(final String applicationIdentifier, final String applicationPlatform, final String applicationVersion) {
+    this.applicationIdentifier = applicationIdentifier;
+    this.applicationPlatform = applicationPlatform;
+    this.applicationVersion = applicationVersion;
   }
 
   public String getApplicationIdentifier() {

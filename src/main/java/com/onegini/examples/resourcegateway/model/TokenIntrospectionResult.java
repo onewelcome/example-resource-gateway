@@ -8,8 +8,10 @@ public class TokenIntrospectionResult {
   private int exp;
   private int iat;
   private int nbf;
+  private String appIdentifier;
+  private String appVersion;
+  private String appPlatform;
   private String sub;
-  private String iss;
   private int usageLimit;
   private TokenType[] amr;
 
@@ -77,14 +79,6 @@ public class TokenIntrospectionResult {
     this.sub = sub;
   }
 
-  public String getIss() {
-    return iss;
-  }
-
-  public void setIss(final String iss) {
-    this.iss = iss;
-  }
-
   public int getUsageLimit() {
     return usageLimit;
   }
@@ -99,5 +93,29 @@ public class TokenIntrospectionResult {
 
   public void setAmr(final TokenType[] amr) {
     this.amr = amr;
+  }
+
+  public String getAppIdentifier() {
+    return appIdentifier;
+  }
+
+  public void setAppIdentifier(final String appIdentifier) {
+    this.appIdentifier = appIdentifier;
+  }
+
+  public String getAppVersion() {
+    return appVersion;
+  }
+
+  public void setAppVersion(final String appVersion) {
+    this.appVersion = appVersion;
+  }
+
+  public String getAppPlatform() {
+    return appPlatform;
+  }
+
+  public void setAppPlatform(final String appPlatform) {
+    this.appPlatform = appPlatform;
   }
 }
