@@ -75,7 +75,7 @@ public class ResourcesController {
     return new ResponseEntity<>(decoratedUserId, OK);
   }
 
-  @RequestMapping(value = "/mirror-request", method = RequestMethod.POST)
+  @RequestMapping(value = "/mirror-request", method = { RequestMethod.POST, RequestMethod.PUT })
   public ResponseEntity<byte[]> mirrorRequest(@RequestHeader(AUTHORIZATION) final String authorizationHeader,
                                               @RequestHeader(value = CONTENT_TYPE, required = false) final String contentType,
                                               @RequestBody(required = false) final byte[] requestBody) {
