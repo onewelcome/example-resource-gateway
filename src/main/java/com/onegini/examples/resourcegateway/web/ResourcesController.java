@@ -1,11 +1,14 @@
 package com.onegini.examples.resourcegateway.web;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpStatus.OK;
 
 import javax.annotation.Resource;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,24 +41,20 @@ public class ResourcesController {
 
   @RequestMapping(value = "/devices", method = RequestMethod.GET)
   public ResponseEntity<?> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+    final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResult(authorizationHeader);
 
-    final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
-    final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
-
-    scopeValidationService.validateReadScopeGranted(tokenIntrospectionResult.getScope());
     tokenTypeValidationService.validateNoImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
+    scopeValidationService.validateReadScopeGranted(tokenIntrospectionResult.getScope());
 
     return deviceApiRequestService.getDevices(tokenIntrospectionResult.getSub());
   }
 
   @RequestMapping(value = "/application-details", method = RequestMethod.GET)
   public ResponseEntity<?> getApplicationDetails(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+    final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResult(authorizationHeader);
 
-    final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
-    final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
-
-    scopeValidationService.validateApplicationDetailsScopeGranted(tokenIntrospectionResult.getScope());
     tokenTypeValidationService.validateNoImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
+    scopeValidationService.validateApplicationDetailsScopeGranted(tokenIntrospectionResult.getScope());
 
     final ApplicationDetails applicationDetails = new ApplicationDetails(tokenIntrospectionResult.getAppIdentifier(), tokenIntrospectionResult.getAppPlatform(),
         tokenIntrospectionResult.getAppVersion());
@@ -65,9 +64,7 @@ public class ResourcesController {
 
   @RequestMapping(value = "/user-id-decorated", method = RequestMethod.GET)
   public ResponseEntity<?> getDecoratedUserId(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
-
-    final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
-    final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
+    final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResult(authorizationHeader);
 
     tokenTypeValidationService.validateImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
 
@@ -76,5 +73,25 @@ public class ResourcesController {
         .build();
 
     return new ResponseEntity<>(decoratedUserId, OK);
+  }
+
+  @RequestMapping(value = "/mirror-request", method = RequestMethod.POST)
+  public ResponseEntity<byte[]> mirrorRequest(@RequestHeader(AUTHORIZATION) final String authorizationHeader,
+                                              @RequestHeader(value = CONTENT_TYPE, required = false) final String contentType,
+                                              @RequestBody(required = false) final byte[] requestBody) {
+    final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResult(authorizationHeader);
+
+    tokenTypeValidationService.validateNoImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
+    scopeValidationService.validateReadScopeGranted(tokenIntrospectionResult.getScope());
+
+    LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    headers.set(CONTENT_TYPE, contentType);
+
+    return new ResponseEntity<>(requestBody, headers, OK);
+  }
+
+  private TokenIntrospectionResult getTokenIntrospectionResult(final @RequestHeader(AUTHORIZATION) String authorizationHeader) {
+    final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
+    return tokenIntrospectionService.introspectAccessToken(accessToken);
   }
 }
