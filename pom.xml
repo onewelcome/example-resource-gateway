@@ -20,7 +20,7 @@
 
     <groupId>com.onegini.examples</groupId>
     <artifactId>resource-gateway</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <version>2.2.0</version>
 
     <properties>
         <java.version>1.8</java.version>
@@ -95,7 +95,7 @@
                 <version>${docker-maven-plugin.version}</version>
                 <configuration>
                     <imageName>example-resource-gateway:latest</imageName>
-                    <baseImage>java:8u92-jre-alpine</baseImage>
+                    <baseImage>openjdk:8u201-jdk-alpine</baseImage>
                     <entryPoint>["java", "-jar", "/opt/onegini/resource-gateway-boot.jar"]</entryPoint>
                     <resources>
                         <resource>
