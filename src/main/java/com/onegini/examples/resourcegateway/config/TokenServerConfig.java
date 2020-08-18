@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "resource.gateway.tokenServer")
+@ConfigurationProperties(prefix = "resource.gateway.token-server")
 public class TokenServerConfig {
 
   private String clientId;

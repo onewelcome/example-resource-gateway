@@ -1,0 +1,62 @@
+version: 2.1
+
+orbs:
+  onegini-build: onegini/onegini-build@1
+
+.dev-context-and-executor: &dev-context-and-executor
+  context: dev-context
+  executor:
+    name: onegini-build/maven-builder
+    tag: 11-jdk-stretch
+
+.component-type-application: &component-type-application
+  component_type: application
+
+.require-build: &require-build
+  requires:
+    - build
+
+.filter-tags-only: &filter-tags-only
+  filters:
+    tags:
+      only: /.*/
+    branches:
+      ignore: /.*/
+
+workflows:
+  version: 2
+  build-workflow:
+    jobs:
+      - onegini-build/build-install:
+          name: build
+          <<: *dev-context-and-executor
+          <<: *component-type-application
+
+      - onegini-build/check-vulnerabilities:
+          name: check
+          <<: *dev-context-and-executor
+          <<: *component-type-application
+          <<: *require-build
+
+      - onegini-build/maven:
+          name: docker-snapshot
+          <<: *dev-context-and-executor
+          <<: *component-type-application
+          <<: *require-build
+          goal: pl.project13.maven:git-commit-id-plugin:revision jib:build
+          profiles: jib
+          projects: resource-gateway
+
+      - onegini-build/docker-release-promote:
+          name: docker-release
+          <<: *dev-context-and-executor
+          <<: *filter-tags-only
+          projects: onegini-customer-dashboard-frontend,onegini-customer-dashboard-backend
+          docker_projects: resource-gateway
+
+      - onegini-build/notify-released:
+          name: norify-released
+          context: dev-context
+          <<: *filter-tags-only
+          requires:
+            - docker-release

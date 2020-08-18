@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+device:
+  api:
+    serverRoot: ${resource.gateway.tokenServer.baseUri}
+
+management:
+  context-path: /actuator
