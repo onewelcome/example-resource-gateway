@@ -60,3 +60,4 @@ workflows:
           <<: *filter-tags-only
           requires:
             - docker-release
+
