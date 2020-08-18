@@ -45,14 +45,11 @@ workflows:
           <<: *require-build
           goal: pl.project13.maven:git-commit-id-plugin:revision jib:build
           profiles: jib
-          projects: resource-gateway
 
       - onegini-build/docker-release-promote:
           name: docker-release
           <<: *dev-context-and-executor
           <<: *filter-tags-only
-          projects: onegini-customer-dashboard-frontend,onegini-customer-dashboard-backend
-          docker_projects: resource-gateway
 
       - onegini-build/notify-released:
           name: norify-released
