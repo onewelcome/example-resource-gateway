@@ -115,6 +115,11 @@
             <artifactId>jib-maven-plugin</artifactId>
             <version>${jib-maven-plugin.version}</version>
             <configuration>
+              <!-- TODO OAUTH-3495 remove-->
+              <from>
+                <image>gcr.io/distroless/java:11-debug</image>
+              </from>
+
               <to>
                 <image>snapshot.onegini.com/onegini/example-resource-gateway</image>
                 <tags>${project.version},${git.commit.id.describe}</tags>
