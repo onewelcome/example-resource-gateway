@@ -7,9 +7,3 @@ device:
 
 management:
   context-path: /actuator
-
-  # TODO OAUTH-3495 remove again
-  endpoints:
-    web:
-      exposure:
-        include: health,env,info
