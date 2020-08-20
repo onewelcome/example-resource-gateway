@@ -7,17 +7,17 @@ is validated via the Onegini Token Server. If the access token was proven to be 
 Token Server is exposed as resource. So in this example the Token Server acts as a resource server as well.
 
 ```
-  +-------------+                           +------------------+                                          +-----------------+                               
-  | Onegini SDK | ---- (1) get devices ---> | Resource Gateway |  ---- (2) validate access token    --->  |  Token Server   |                               
-  |             |                           |                  |                                          |                 |                               
-  |             | <--- (6) user devices --- |                  |  <---- (3) introspection response -----  |                 |                               
-  +-------------+                           +------------------+                                          +-----------------+    
+  +-------------+                           +------------------+                                          +-----------------+
+  | Onegini SDK | ---- (1) get devices ---> | Resource Gateway |  ---- (2) validate access token    --->  |  Token Server   |
+  |             |                           |                  |                                          |                 |
+  |             | <--- (6) user devices --- |                  |  <---- (3) introspection response -----  |                 |
+  +-------------+                           +------------------+                                          +-----------------+
                                                ^     |
-                                               |     |                                                    +-----------------+ 
-                                               |     +------------------- (4) get user device --------->  | Resource Server | 
-                                               |                                                          | (Token Server)  | 
+                                               |     |                                                    +-----------------+
+                                               |     +------------------- (4) get user device --------->  | Resource Server |
+                                               |                                                          | (Token Server)  |
                                                +--------------------------- (5) user devices -----------  |                 |
-                                                                                                          +-----------------+ 
+                                                                                                          +-----------------+
 ```
 
 ## Configuration
@@ -26,10 +26,10 @@ Token Server is exposed as resource. So in this example the Token Server acts as
 |-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | resource.gateway.tokenServer.clientId     | The client id of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html)     |
 | resource.gateway.tokenServer.clientSecret | The client secret of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html) |
-| resource.gateway.tokenServer.baseUri      | The token server base uri.                                                                                                                                                                                     | 
+| resource.gateway.tokenServer.baseUri      | The token server base uri.                                                                                                                                                                                     |
 | device.api.serverRoot                     | The base uri of the resource server (Token Server in this example).                                                                                                                                            |
 | device.api.username                       | The basic authentication username used to access the api.                                                                                                                                                      |
-| device.api.password                       | The basic authentication password used to access the api.                                                                                                                                                      | 
+| device.api.password                       | The basic authentication password used to access the api.                                                                                                                                                      |
 
 ## Building the sourcecode
 
@@ -41,6 +41,11 @@ You can either run the application via the Spring Boot Maven plugin or by using 
 
 `mvn spring-boot:run`
 
-or 
+or
 
 `java -jar <location of the jar file>`
+
+## Releasing
+
+- Update the [CHANGELOG.md](CHANGELOG.md). Make sure that the version you are releasing is mentioned
+- Create a tag either from the GitHub UI or through git. Make sure that the name of the tag only contains the version number that you want to release, e.g. `2.0.0`.
