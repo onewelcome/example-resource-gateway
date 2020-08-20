@@ -38,6 +38,7 @@
     <!-- Maven plugin versions-->
     <git-commit-id-plugin.version>4.0.2</git-commit-id-plugin.version>
     <jib-maven-plugin.version>2.5.2</jib-maven-plugin.version>
+    <maven-enforcer-plugin.version>1.4</maven-enforcer-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -76,6 +77,28 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-no-snapshots</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireReleaseDeps>
+                  <onlyWhenRelease>true</onlyWhenRelease>
+                </requireReleaseDeps>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+
+      </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
