@@ -26,6 +26,9 @@
     <revision>DEV-SNAPSHOT</revision>
     <java.version>11</java.version>
 
+    <docker.groupName>onegini</docker.groupName>
+    <docker.imageName>example-resource-gateway</docker.imageName>
+
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
@@ -139,7 +142,7 @@
             <version>${jib-maven-plugin.version}</version>
             <configuration>
               <to>
-                <image>snapshot.onegini.com/onegini/example-resource-gateway</image>
+                <image>snapshot.onegini.com/${docker.groupName}/${docker.imageName}</image>
                 <tags>${project.version},${git.commit.id.describe}</tags>
               </to>
             </configuration>
