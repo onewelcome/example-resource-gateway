@@ -1,0 +1,15 @@
+server:
+  port: 9999
+
+resource:
+  gateway:
+    tokenServer:
+      baseUri: http://dev.onegini.me:7878/oauth
+
+      clientId: validate
+      clientSecret: the token
+
+device:
+  api:
+    username: username
+    password: password

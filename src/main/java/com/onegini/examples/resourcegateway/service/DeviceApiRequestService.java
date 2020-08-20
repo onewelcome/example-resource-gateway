@@ -19,7 +19,7 @@ import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilde
 @Service
 public class DeviceApiRequestService {
 
-  private static final String DEVICE_API_PATH = "/api/v2/users/{user_id}/devices";
+  private static final String DEVICE_API_PATH = "/api/v3/users/{user_id}/devices";
 
   @Resource
   private RestTemplate restTemplate;
