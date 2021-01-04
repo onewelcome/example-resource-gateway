@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2013-2016 Onegini b.v.
+  Copyright 2013-2021 Onegini b.v.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@
     <!-- Resource Gateway -->
     <commons-lang3.version>3.11</commons-lang3.version>
     <httpclient.version>4.5.13</httpclient.version>
-    <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
+    <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Maven plugin versions-->
