@@ -35,7 +35,7 @@
     <!-- Resource Gateway -->
     <commons-lang3.version>3.11</commons-lang3.version>
     <httpclient.version>4.5.13</httpclient.version>
-    <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
+    <spring-boot.version>2.4.1</spring-boot.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Maven plugin versions-->
