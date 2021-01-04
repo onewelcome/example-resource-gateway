@@ -39,7 +39,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Maven plugin versions-->
-    <dependency-check-maven.version>6.0.3</dependency-check-maven.version>
+    <dependency-check-maven.version>6.0.4</dependency-check-maven.version>
     <dependency-check.fail-build-on-CVSS>7.0</dependency-check.fail-build-on-CVSS>
     <git-commit-id-plugin.version>4.0.3</git-commit-id-plugin.version>
     <jib-maven-plugin.version>2.7.0</jib-maven-plugin.version>
