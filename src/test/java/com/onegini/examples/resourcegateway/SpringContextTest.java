@@ -5,24 +5,24 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER
 
 import javax.annotation.Resource;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.onegini.examples.resourcegateway.web.ResourcesController;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = AFTER_CLASS)
 @SpringBootTest(classes = { ResourceGatewayApplication.class })
-public class SpringContextTest {
+class SpringContextTest {
 
   @Resource
   private ResourcesController resourcesController;
 
   @Test
-  public void should_injected() {
+  void should_injected() {
     assertThat(resourcesController).isNotNull();
   }
 
