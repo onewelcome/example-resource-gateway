@@ -6,13 +6,14 @@ import static org.springframework.http.HttpStatus.OK;
 import javax.annotation.Resource;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.onegini.examples.resourcegateway.model.ApplicationDetails;
-import com.onegini.examples.resourcegateway.model.DecoratedUserId;
+import com.onegini.examples.resourcegateway.model.DecoratedUser;
+import com.onegini.examples.resourcegateway.model.DeviceList;
 import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
 import com.onegini.examples.resourcegateway.service.AccessTokenExtractor;
 import com.onegini.examples.resourcegateway.service.DeviceApiRequestService;
@@ -36,8 +37,8 @@ public class ResourcesController {
   @Resource
   private TokenTypeValidationService tokenTypeValidationService;
 
-  @RequestMapping(value = "/devices", method = RequestMethod.GET)
-  public ResponseEntity<?> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  @GetMapping(value = "/devices")
+  public ResponseEntity<DeviceList> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
 
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
@@ -48,8 +49,8 @@ public class ResourcesController {
     return deviceApiRequestService.getDevices(tokenIntrospectionResult.getSub());
   }
 
-  @RequestMapping(value = "/application-details", method = RequestMethod.GET)
-  public ResponseEntity<?> getApplicationDetails(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  @GetMapping(value = "/application-details")
+  public ResponseEntity<ApplicationDetails> getApplicationDetails(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
 
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
@@ -60,21 +61,21 @@ public class ResourcesController {
     final ApplicationDetails applicationDetails = new ApplicationDetails(tokenIntrospectionResult.getAppIdentifier(), tokenIntrospectionResult.getAppPlatform(),
         tokenIntrospectionResult.getAppVersion());
 
-    return new ResponseEntity<Object>(applicationDetails, OK);
+    return new ResponseEntity<>(applicationDetails, OK);
   }
 
-  @RequestMapping(value = "/user-id-decorated", method = RequestMethod.GET)
-  public ResponseEntity<?> getDecoratedUserId(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  @GetMapping(value = "/user-id-decorated")
+  public ResponseEntity<DecoratedUser> getDecoratedUserId(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
 
     final String accessToken = accessTokenExtractor.extractFromHeader(authorizationHeader);
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionService.introspectAccessToken(accessToken);
 
     tokenTypeValidationService.validateImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
 
-    final DecoratedUserId decoratedUserId = new DecoratedUserIdBuilder()
+    final DecoratedUser decoratedUser = new DecoratedUserIdBuilder()
         .withUserId(tokenIntrospectionResult.getSub())
         .build();
 
-    return new ResponseEntity<>(decoratedUserId, OK);
+    return new ResponseEntity<>(decoratedUser, OK);
   }
 }

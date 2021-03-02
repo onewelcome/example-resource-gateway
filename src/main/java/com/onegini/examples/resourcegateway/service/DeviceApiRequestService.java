@@ -13,25 +13,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.onegini.examples.resourcegateway.config.DeviceApiConfig;
-import com.onegini.examples.resourcegateway.model.Devices;
+import com.onegini.examples.resourcegateway.model.DeviceList;
 import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
 
 @Service
 public class DeviceApiRequestService {
 
-  private static final String DEVICE_API_PATH = "/api/v3/users/{user_id}/devices";
+  private static final String DEVICE_API_PATH = "/api/v4/users/{user_id}/devices"; // NOSONAR
 
   @Resource
   private RestTemplate restTemplate;
   @Resource
   private DeviceApiConfig deviceApiConfig;
 
-  public ResponseEntity<Devices> getDevices(final String userId) {
+  public ResponseEntity<DeviceList> getDevices(final String userId) {
     final HttpEntity<?> requestEntity = createRequestEntity();
     final String uri = deviceApiConfig.getServerRoot() + DEVICE_API_PATH;
 
-    final ResponseEntity<Devices> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Devices.class, userId);
-    final Devices devices = response.getBody();
+    final ResponseEntity<DeviceList> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, DeviceList.class, userId);
+    final DeviceList devices = response.getBody();
     return new ResponseEntity<>(devices, OK);
   }
 

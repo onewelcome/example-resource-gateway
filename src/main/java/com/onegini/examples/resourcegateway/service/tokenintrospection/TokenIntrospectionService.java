@@ -16,7 +16,7 @@ public class TokenIntrospectionService {
 
   public TokenIntrospectionResult introspectAccessToken(final String accessToken) {
     final TokenIntrospectionResult tokenIntrospectionResult = tokenIntrospectionRequestExecutor.execute(accessToken).getBody();
-    final boolean tokenInvalid = !tokenIntrospectionResult.isActive();
+    final boolean tokenInvalid = tokenIntrospectionResult == null || !tokenIntrospectionResult.isActive();
 
     if (tokenInvalid) {
       throw new InvalidAccessTokenException("Token introspection result: invalid token");
