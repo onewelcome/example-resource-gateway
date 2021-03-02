@@ -9,29 +9,21 @@ import com.onegini.examples.resourcegateway.model.exception.ScopeNotGrantedExcep
 @Service
 public class ScopeValidationService {
 
-  private static final String SCOPE_READ = "read";
-  private static final String SCOPE_APPLICATION_DETAILS = "application-details";
+  public static final String SCOPE_READ = "read";
+  public static final String SCOPE_APPLICATION_DETAILS = "application-details";
+  public static final String SCOPE_WRITE = "write";
   private static final String SCOPE_SEPARATOR = " ";
 
-  public void validateReadScopeGranted(final String grantedScopes) {
-    validateScopeGranted(grantedScopes, SCOPE_READ);
-  }
-
-  public void validateApplicationDetailsScopeGranted(final String grantedScopes) {
-    validateScopeGranted(grantedScopes, SCOPE_APPLICATION_DETAILS);
-  }
-
-  private void validateScopeGranted(final String grantedScopes, final String scope) {
+  public void validateScopeGranted(final String grantedScopes, final String requiredScope) {
     if (StringUtils.isBlank(grantedScopes)) {
       throw new ScopeNotGrantedException("No scopes granted to access token");
     }
 
     final String[] scopes = StringUtils.split(grantedScopes, SCOPE_SEPARATOR);
-    final boolean scopeNotGranted = !ArrayUtils.contains(scopes, scope);
+    final boolean scopeNotGranted = !ArrayUtils.contains(scopes, requiredScope);
     if (scopeNotGranted) {
-      final String message = String.format("Scope %s not granted to provided access token.", scope);
+      final String message = String.format("Scope %s not granted to provided access token.", requiredScope);
       throw new ScopeNotGrantedException(message);
     }
   }
-
 }

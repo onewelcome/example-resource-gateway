@@ -103,6 +103,31 @@ Example response:
 }
 ```
 
+### File upload
+
+POST: `/resources/file-upload`
+
+Requires an Access token with scope `write`.  Access tokens issued via the Implicit Authentication flow are rejected.
+
+It returns all parts in the response. The body is a Base64 encoded string of the uploaded file. 
+
+Example response: 
+
+```json
+{
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "attachments": [
+    {
+      "file_name": "spacer.gif",
+      "file_size": 1024,
+      "content_type": "image/gif",
+      "body": "blablabla=="
+    }
+  ]
+}
+```
+
 ## Releasing
 
 - Update the [CHANGELOG.md](CHANGELOG.md). Make sure that the version you are releasing is mentioned
