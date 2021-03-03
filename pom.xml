@@ -45,6 +45,14 @@
     <maven-enforcer-plugin.version>1.4</maven-enforcer-plugin.version>
   </properties>
 
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <distribution>repo</distribution>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
