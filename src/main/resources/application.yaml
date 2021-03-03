@@ -6,4 +6,10 @@ device:
     serverRoot: ${resource.gateway.tokenServer.baseUri}
 
 management:
-  context-path: /actuator
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+  server:
+    base-path: /actuator

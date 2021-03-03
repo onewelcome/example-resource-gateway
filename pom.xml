@@ -31,12 +31,11 @@
 
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-
-    <!-- Resource Gateway -->
-    <commons-lang3.version>3.12.0</commons-lang3.version>
-    <httpclient.version>4.5.13</httpclient.version>
-    <spring-boot.version>2.4.3</spring-boot.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- Resource Gateway dependencies -->
+    <onegini-communication-resiliency-starter.version>3.0.0</onegini-communication-resiliency-starter.version>
+    <spring-boot.version>2.4.3</spring-boot.version>
 
     <!-- Maven plugin versions-->
     <dependency-check-maven.version>6.1.1</dependency-check-maven.version>
@@ -45,6 +44,14 @@
     <jib-maven-plugin.version>2.8.0</jib-maven-plugin.version>
     <maven-enforcer-plugin.version>1.4</maven-enforcer-plugin.version>
   </properties>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <distribution>repo</distribution>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
 
   <dependencyManagement>
     <dependencies>
@@ -69,20 +76,38 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.onegini</groupId>
+      <artifactId>onegini-communication-resiliency-starter</artifactId>
+      <version>${onegini-communication-resiliency-starter.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>${httpclient.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
 
     <!-- Test Dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

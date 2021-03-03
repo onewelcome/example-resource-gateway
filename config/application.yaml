@@ -4,7 +4,7 @@ server:
 resource:
   gateway:
     tokenServer:
-      baseUri: http://dev.onegini.me:7878/oauth
+      baseUri: http://localhost:7878/oauth
 
       clientId: validate
       clientSecret: the token
