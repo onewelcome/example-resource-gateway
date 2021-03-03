@@ -2,11 +2,12 @@
 
 [![CircleCI](https://circleci.com/gh/Onegini/example-resource-gateway.svg?style=shield&circle-token=6136616c3a42e02dbc404ba9fb568c493f0dc969)](https://circleci.com/gh/Onegini/example-resource-gateway)
 
-This example shows the basic functionality a resource gateway should support. The project is build based on Spring Boot.
+This example shows the basic functionality a resource gateway should support. The project is built based on Spring Boot.
 
 The resource gateway supports bearer token usage via the authorization header according to [RFC6750](https://tools.ietf.org/html/rfc6750). This access token is
-validated via the Onegini Token Server. If the access token was proven to be valid the actual resource is returned. In this example the device api of the Token
-Server is exposed as resource. So in this example the Token Server acts as a resource server as well.
+validated via the Onegini Token Server. If the access token was proven to be valid, the actual resource is returned. In this example resource gateway
+the [device api](https://docs.onegini.com/msp/stable/token-server/api-reference/end-user/device-v4.html) of the Onegini Token Server is exposed as resource. In
+this example the Onegini Token Server acts both as an authorization server and as a resource server.
 
 ```
   +-------------+                           +------------------+                                          +-----------------+
@@ -24,14 +25,22 @@ Server is exposed as resource. So in this example the Token Server acts as a res
 
 ## Configuration
 
-| Property                                  | Description                                                                                                                                                                                                    |
-|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| resource.gateway.tokenserver.clientId     | The client id of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html)     |
-| resource.gateway.tokenserver.clientSecret | The client secret of the oauth client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/public/token-server/topics/general-app-config/resource-gateway/resource-gateway.html) |
-| resource.gateway.tokenserver.baseUri      | The token server base uri.                                                                                                                                                                                     |
-| device.api.serverRoot                     | The base uri of the resource server (Token Server in this example).                                                                                                                                            |
-| device.api.username                       | The basic authentication username used to access the End User api in the Token Server.                                                                                                                                                      |
-| device.api.password                       | The basic authentication password used to access the End User api in the Token Server.                                                                                                                                                      |
+Refer to the Spring
+Boot [Externalized Configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config) for
+setting the properties.
+
+The following properties can be set for the Example Resource Gateway:
+
+| Property                                  | Default value | Example value               | Description
+|-------------------------------------------|---------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| resource.gateway.tokenserver.baseUri      |               | http://localhost:7878/oauth | The base URI of the [Onegini Token Server](https://docs.onegini.com/msp/stable/token-server).
+| resource.gateway.tokenserver.clientId     |               |                             | The client id of the API client acting as resource gateway, see [Resource Gateway config](https://docs.onegini.com/msp/stable/token-server/topics/general-app-config/resource-gateway/resource-gateway.html).
+| resource.gateway.tokenserver.clientSecret |               |                             | The client secret of the API client acting as resource gateway.
+| device.api.serverRoot                     | The value of `resource.gateway.tokenServer.baseUri` | http://localhost:7878/oauth | The base uri of the resource server that returns a list of Devices. In this example, it is the base URI of the Onegini Token Server.
+| device.api.username                       |               |                             | The basic authentication username used to [access the End User api](https://docs.onegini.com/msp/stable/token-server/topics/technical-app-management/api-configuration/api-configuration.html) in the Onegini Token Server.
+| device.api.password                       |               |                             | The basic authentication password used to access the End User api in the Onegini Token Server.
+| spring.servlet.multipart.max-file-size    | 1MB           |                             | Sets the maximum file size per uploaded file.
+| spring.servlet.multipart.max-request-size | 10MB          |                             | Sets the maximum size of the HTTP request when uploading files.
 
 ## Building the sourcecode
 
@@ -73,7 +82,7 @@ to [Device API v4](https://docs.onegini.com/msp/stable/token-server/api-referenc
 
 GET: `/resources/application-details`
 
-Requires an Access token with scope `application-details`.  Access tokens issued via the Implicit Authentication flow are rejected.
+Requires an Access token with scope `application-details`. Access tokens issued via the Implicit Authentication flow are rejected.
 
 Returns an object with details of the (mobile) application for which the Access token was issued.
 
@@ -107,11 +116,48 @@ Example response:
 
 POST: `/resources/file-upload`
 
-Requires an Access token with scope `write`.  Access tokens issued via the Implicit Authentication flow are rejected.
+This request accepts multipart/form-data with the following parameters:
 
-It returns all parts in the response. The body is a Base64 encoded string of the uploaded file. 
+| Parameter name    | Type            | Required  | Remarks
+|-------------------|-----------------|-----------|---------------
+| name              | string          | no        |
+| email             | string          | no        |
+| attachments       | file (multiple) | no        | Multiple files can be sent as form-data with name "attachments"
 
-Example response: 
+Requires an Access token with scope `write`. Access tokens issued via the Implicit Authentication flow are rejected.
+
+Example request:
+
+```http request
+POST /resources/upload HTTP/1.1
+Host: resource.example.com
+Authorization: Bearer 5F09FC2DD7DCDB72ABF1A6C026DF8FFB9D7D1F4AD069E34F0A6EC6206A593420
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="email"
+
+jane@example.com
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Jane Doe
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="attachments"; filename="background.jpg"
+Content-Type: image/jpeg
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="attachments"; filename="logo.svg"
+Content-Type: image/svg+xml
+
+(data)
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+```
+
+This endpoint returns all parts in the response. The body is a Base64 encoded byte[] of the original file contents.
+
+Example response:
 
 ```json
 {
@@ -119,10 +165,16 @@ Example response:
   "email": "jane@example.com",
   "attachments": [
     {
-      "file_name": "spacer.gif",
-      "file_size": 1024,
-      "content_type": "image/gif",
-      "body": "blablabla=="
+      "file_name": "background.jpg",
+      "file_size": 34626,
+      "content_type": "image/jpeg",
+      "body": "LzlqLzRBQVFTa1pKUmdBQkF…dk42UC9a"
+    },
+    {
+      "file_name": "logo.svg",
+      "file_size": 1428,
+      "content_type": "image/svg+xml",
+      "body": "UEhOMlp5QjRiV3h1Y3o…1jKw=="
     }
   ]
 }
