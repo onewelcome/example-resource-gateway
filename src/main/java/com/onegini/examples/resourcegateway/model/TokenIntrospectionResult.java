@@ -1,6 +1,6 @@
 package com.onegini.examples.resourcegateway.model;
 
-import org.apache.commons.lang3.ArrayUtils;
+import java.util.Collection;
 
 import lombok.Data;
 
@@ -18,14 +18,6 @@ public class TokenIntrospectionResult {
   private String appPlatform;
   private String sub;
   private int usageLimit;
-  private TokenType[] amr;
-
-  public TokenType[] getAmr() {
-    return ArrayUtils.clone(amr);
-  }
-
-  public void setAmr(final TokenType[] amr) {
-    this.amr = ArrayUtils.clone(amr);
-  }
+  private Collection<TokenType> amr;
 
 }

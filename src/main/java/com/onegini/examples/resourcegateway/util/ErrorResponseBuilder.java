@@ -1,6 +1,7 @@
 package com.onegini.examples.resourcegateway.util;
 
 import static com.onegini.examples.resourcegateway.ResourceGatewayConstants.BEARER_PREFIX;
+import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpHeaders.WWW_AUTHENTICATE;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -8,15 +9,15 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import org.springframework.http.ResponseEntity;
 
 import com.onegini.examples.resourcegateway.model.ErrorResponse;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = PRIVATE)
 public class ErrorResponseBuilder {
 
-  public static ResponseEntity<ErrorResponse> buildBadRequestResponse() {
-    final String error = "invalid_request";
-    final String errorDescription = "The request is missing a required parameter";
-
-    final ErrorResponse errorResponse = new ErrorResponse(error, errorDescription);
-    return ResponseEntity.badRequest().body(errorResponse);
+  public static ResponseEntity<ErrorResponse> buildMissingAccessTokenResponse() {
+    return ResponseEntity.status(UNAUTHORIZED)
+        .header(WWW_AUTHENTICATE, BEARER_PREFIX + "realm=\"Example resource gateway\"")
+        .build();
   }
 
   public static ResponseEntity<ErrorResponse> buildInvalidScopeResponse() {

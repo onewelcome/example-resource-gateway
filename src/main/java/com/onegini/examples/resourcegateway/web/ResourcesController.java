@@ -44,7 +44,7 @@ public class ResourcesController {
   private final TokenTypeValidationService tokenTypeValidationService;
 
   @GetMapping(value = "/devices")
-  public ResponseEntity<DeviceList> getDevices(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  public ResponseEntity<DeviceList> getDevices(@RequestHeader(name = AUTHORIZATION, required = false) final String authorizationHeader) {
     final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResultFromHeader(authorizationHeader);
     validateScopeAndTokenType(tokenIntrospectionResult, SCOPE_READ);
 
@@ -52,7 +52,7 @@ public class ResourcesController {
   }
 
   @GetMapping(value = "/application-details")
-  public ResponseEntity<ApplicationDetails> getApplicationDetails(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  public ResponseEntity<ApplicationDetails> getApplicationDetails(@RequestHeader(name = AUTHORIZATION, required = false) final String authorizationHeader) {
     final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResultFromHeader(authorizationHeader);
     validateScopeAndTokenType(tokenIntrospectionResult, SCOPE_APPLICATION_DETAILS);
 
@@ -63,7 +63,7 @@ public class ResourcesController {
   }
 
   @GetMapping(value = "/user-id-decorated")
-  public ResponseEntity<DecoratedUser> getDecoratedUserId(@RequestHeader(AUTHORIZATION) final String authorizationHeader) {
+  public ResponseEntity<DecoratedUser> getDecoratedUserId(@RequestHeader(name = AUTHORIZATION, required = false) final String authorizationHeader) {
     final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResultFromHeader(authorizationHeader);
 
     tokenTypeValidationService.validateImplicitAuthenticationToken(tokenIntrospectionResult.getAmr());
@@ -75,9 +75,9 @@ public class ResourcesController {
     return new ResponseEntity<>(decoratedUser, OK);
   }
 
-  @PostMapping(value = "upload")
-  public ResponseEntity<MultipartResponse> upload(@RequestHeader(AUTHORIZATION) final String authorizationHeader,
-                                                  @ModelAttribute final FormDataWithFiles formDataWithFiles) {
+  @PostMapping(value = "/file-upload")
+  public ResponseEntity<MultipartResponse> fileUpload(@RequestHeader(name = AUTHORIZATION, required = false) final String authorizationHeader,
+                                                      @ModelAttribute final FormDataWithFiles formDataWithFiles) {
     final TokenIntrospectionResult tokenIntrospectionResult = getTokenIntrospectionResultFromHeader(authorizationHeader);
     validateScopeAndTokenType(tokenIntrospectionResult, SCOPE_WRITE);
 

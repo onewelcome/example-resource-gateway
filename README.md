@@ -129,7 +129,7 @@ Requires an Access token with scope `write`. Access tokens issued via the Implic
 Example request:
 
 ```http request
-POST /resources/upload HTTP/1.1
+POST /resources/file-upload HTTP/1.1
 Host: resource.example.com
 Authorization: Bearer 5F09FC2DD7DCDB72ABF1A6C026DF8FFB9D7D1F4AD069E34F0A6EC6206A593420
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
