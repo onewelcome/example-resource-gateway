@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  onegini-build: onegini/onegini-build@1
+  onegini-build: onegini/onegini-build@2
 
 .dev-context-and-executor: &dev-context-and-executor
   context: dev-context
   executor:
     name: onegini-build/maven-builder
-    tag: 11-jdk-stretch
+    tag: "11.0"
 
 .component-type-application: &component-type-application
   component_type: application
