@@ -1,6 +1,6 @@
 # Example resource gateway
 
-[![CircleCI](https://circleci.com/gh/Onegini/example-resource-gateway.svg?style=shield&circle-token=6136616c3a42e02dbc404ba9fb568c493f0dc969)](https://circleci.com/gh/Onegini/example-resource-gateway)
+[![CircleCI](https://circleci.com/gh/onewelcome/example-resource-gateway.svg?style=shield&circle-token=6136616c3a42e02dbc404ba9fb568c493f0dc969)](https://circleci.com/gh/onewelcome/example-resource-gateway)
 
 This example shows the basic functionality a resource gateway should support. The project is built based on Spring Boot.
 
