@@ -1,11 +1,4 @@
 version: 2
-registries:
-  maven-repository-repo-onegini-com-artifactory-public:
-    type: maven-repository
-    url: https://repo.onegini.com/artifactory/public
-    username: dependabot
-    password: "${{secrets.MAVEN_REPOSITORY_REPO_ONEGINI_COM_ARTIFACTORY_PUBLIC_PASSWORD}}"
-
 updates:
 - package-ecosystem: maven
   directory: "/"
@@ -13,5 +6,3 @@ updates:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 10
-  registries:
-  - maven-repository-repo-onegini-com-artifactory-public
