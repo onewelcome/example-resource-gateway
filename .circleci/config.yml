@@ -32,12 +32,6 @@ workflows:
           <<: *dev-context-and-executor
           <<: *component-type-application
 
-      - onegini-build/check-vulnerabilities:
-          name: check
-          <<: *dev-context-and-executor
-          <<: *component-type-application
-          <<: *require-build
-
       - onegini-build/maven:
           name: docker-snapshot
           <<: *dev-context-and-executor
