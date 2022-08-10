@@ -41,7 +41,7 @@
     <dependency-check-maven.version>6.1.6</dependency-check-maven.version>
     <dependency-check.fail-build-on-CVSS>7.0</dependency-check.fail-build-on-CVSS>
     <git-commit-id-plugin.version>4.0.4</git-commit-id-plugin.version>
-    <jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
+    <jib-maven-plugin.version>3.2.1</jib-maven-plugin.version>
     <maven-enforcer-plugin.version>1.4</maven-enforcer-plugin.version>
   </properties>
 
