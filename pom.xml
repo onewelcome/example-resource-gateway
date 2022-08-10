@@ -29,20 +29,12 @@
     <docker.groupName>onegini</docker.groupName>
     <docker.imageName>example-resource-gateway</docker.imageName>
 
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Resource Gateway dependencies -->
     <onegini-communication-resiliency-starter.version>3.0.0</onegini-communication-resiliency-starter.version>
     <spring-boot.version>2.7.2</spring-boot.version>
-
-    <!-- Maven plugin versions-->
-    <dependency-check-maven.version>7.1.1</dependency-check-maven.version>
-    <dependency-check.fail-build-on-CVSS>7.0</dependency-check.fail-build-on-CVSS>
-    <git-commit-id-plugin.version>4.0.4</git-commit-id-plugin.version>
-    <jib-maven-plugin.version>3.0.0</jib-maven-plugin.version>
-    <maven-enforcer-plugin.version>1.4</maven-enforcer-plugin.version>
   </properties>
 
   <licenses>
@@ -117,7 +109,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>${maven-enforcer-plugin.version}</version>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <id>enforce-no-snapshots</id>
@@ -142,19 +134,15 @@
         <version>${spring-boot.version}</version>
       </plugin>
       <plugin>
-        <groupId>org.owasp</groupId>
-        <artifactId>dependency-check-maven</artifactId>
-        <version>${dependency-check-maven.version}</version>
-        <configuration>
-          <failBuildOnCVSS>${dependency-check.fail-build-on-CVSS}</failBuildOnCVSS>
-          <suppressionFiles>
-            <suppressionFile>dependency-checker-suppression.xml</suppressionFile>
-          </suppressionFiles>
-          <bundleAuditAnalyzerEnabled>false</bundleAuditAnalyzerEnabled>
-          <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-        </configuration>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.9.10</version>
       </plugin>
-
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>3.2.1</version>
+      </plugin>
     </plugins>
   </build>
 
@@ -166,7 +154,6 @@
           <plugin>
             <groupId>pl.project13.maven</groupId>
             <artifactId>git-commit-id-plugin</artifactId>
-            <version>${git-commit-id-plugin.version}</version>
             <executions>
               <execution>
                 <id>get-the-git-infos</id>
@@ -187,7 +174,6 @@
           <plugin>
             <groupId>com.google.cloud.tools</groupId>
             <artifactId>jib-maven-plugin</artifactId>
-            <version>${jib-maven-plugin.version}</version>
             <configuration>
               <to>
                 <image>snapshot.onegini.com/${docker.groupName}/${docker.imageName}</image>
