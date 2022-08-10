@@ -24,12 +24,11 @@
 
   <properties>
     <revision>DEV-SNAPSHOT</revision>
-    <java.version>11</java.version>
 
     <docker.groupName>onegini</docker.groupName>
     <docker.imageName>example-resource-gateway</docker.imageName>
 
-    <maven.compiler.release>${java.version}</maven.compiler.release>
+    <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Resource Gateway dependencies -->
@@ -127,6 +126,11 @@
           </execution>
         </executions>
 
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
