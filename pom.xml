@@ -35,7 +35,7 @@
 
     <!-- Resource Gateway dependencies -->
     <onegini-communication-resiliency-starter.version>3.0.0</onegini-communication-resiliency-starter.version>
-    <spring-boot.version>2.4.5</spring-boot.version>
+    <spring-boot.version>2.7.2</spring-boot.version>
 
     <!-- Maven plugin versions-->
     <dependency-check-maven.version>6.1.6</dependency-check-maven.version>
