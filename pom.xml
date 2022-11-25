@@ -33,7 +33,7 @@
 
     <!-- Resource Gateway dependencies -->
     <onegini-communication-resiliency-starter.version>3.0.0</onegini-communication-resiliency-starter.version>
-    <spring-boot.version>2.7.5</spring-boot.version>
+    <spring-boot.version>3.0.0</spring-boot.version>
   </properties>
 
   <licenses>
