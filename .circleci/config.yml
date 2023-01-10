@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  onegini-build: onegini/onegini-build@2
+  onegini-build: onegini/onegini-build@3
 
 .dev-context-and-executor: &dev-context-and-executor
   context: dev-context
