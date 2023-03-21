@@ -6,6 +6,8 @@ import static com.onegini.examples.resourcegateway.service.ScopeValidationServic
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import com.onegini.examples.resourcegateway.model.ApplicationDetails;
 import com.onegini.examples.resourcegateway.model.DecoratedUser;
@@ -113,6 +115,12 @@ public class ResourcesController {
       }
     }
     response.flushBuffer();
+  }
+
+  //For certificate pinning sdk testing
+  @RequestMapping(path ="/unauthenticated", method = { GET, POST })
+  public ResponseEntity<String> unauthenticated() {
+    return new ResponseEntity<>("OK", OK);
   }
 
   private void validateScopeAndTokenType(final TokenIntrospectionResult tokenIntrospectionResult, final String requiredScope) {

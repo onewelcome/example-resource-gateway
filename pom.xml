@@ -32,8 +32,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Resource Gateway dependencies -->
-    <onegini-communication-resiliency-starter.version>3.0.0</onegini-communication-resiliency-starter.version>
-    <spring-boot.version>2.7.7</spring-boot.version>
+    <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+    <jib-maven-plugin.version>3.3.1</jib-maven-plugin.version>
+    <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+    <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
+    <onegini-communication-resiliency-starter.version>3.2.2</onegini-communication-resiliency-starter.version>
+    <snakeyaml.version>2.0</snakeyaml.version>
+    <spring-boot.version>2.7.9</spring-boot.version>
   </properties>
 
   <licenses>
@@ -46,6 +51,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Overridden to fix CVE-2022-1471, remove this override once spring boot supports this version.
+            Latest spring boot version when writing: 2.7.9 -->
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
       <dependency>
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
@@ -108,7 +120,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>${maven-enforcer-plugin.version}</version>
         <executions>
           <execution>
             <id>enforce-no-snapshots</id>
@@ -130,7 +142,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>${maven-compiler-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -140,12 +152,12 @@
       <plugin>
         <groupId>pl.project13.maven</groupId>
         <artifactId>git-commit-id-plugin</artifactId>
-        <version>4.9.10</version>
+        <version>${git-commit-id-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>jib-maven-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>${jib-maven-plugin.version}</version>
       </plugin>
     </plugins>
   </build>
