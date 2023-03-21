@@ -1,10 +1,9 @@
 package com.onegini.examples.resourcegateway.service;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpStatus.OK;
-
-import javax.annotation.Resource;
-
+import com.onegini.examples.resourcegateway.config.DeviceApiConfig;
+import com.onegini.examples.resourcegateway.model.DeviceList;
+import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
+import jakarta.annotation.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,9 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.onegini.examples.resourcegateway.config.DeviceApiConfig;
-import com.onegini.examples.resourcegateway.model.DeviceList;
-import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.OK;
 
 @Service
 public class DeviceApiRequestService {

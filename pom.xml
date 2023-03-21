@@ -28,7 +28,7 @@
     <docker.groupName>onegini</docker.groupName>
     <docker.imageName>example-resource-gateway</docker.imageName>
 
-    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- Resource Gateway dependencies -->
@@ -38,7 +38,7 @@
     <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
     <onegini-communication-resiliency-starter.version>3.2.2</onegini-communication-resiliency-starter.version>
     <snakeyaml.version>2.0</snakeyaml.version>
-    <spring-boot.version>2.7.9</spring-boot.version>
+    <spring-boot.version>3.0.4</spring-boot.version>
   </properties>
 
   <licenses>
@@ -191,6 +191,9 @@
             <groupId>com.google.cloud.tools</groupId>
             <artifactId>jib-maven-plugin</artifactId>
             <configuration>
+              <from>
+                <image>gcr.io/distroless/java17-debian11:nonroot</image>
+              </from>
               <to>
                 <image>snapshot.onegini.com/${docker.groupName}/${docker.imageName}</image>
                 <tags>${project.version},${git.commit.id.describe}</tags>
