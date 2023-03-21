@@ -37,6 +37,7 @@
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
     <onegini-communication-resiliency-starter.version>3.2.2</onegini-communication-resiliency-starter.version>
+    <snakeyaml.version>2.0</snakeyaml.version>
     <spring-boot.version>2.7.9</spring-boot.version>
   </properties>
 
@@ -50,6 +51,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Overridden to fix CVE-2022-1471, remove this override once spring boot supports this version.
+            Latest spring boot version when writing: 2.7.9 -->
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
       <dependency>
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
