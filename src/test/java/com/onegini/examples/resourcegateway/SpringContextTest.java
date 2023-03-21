@@ -1,17 +1,15 @@
 package com.onegini.examples.resourcegateway;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
-
-import javax.annotation.Resource;
-
+import com.onegini.examples.resourcegateway.web.ResourcesController;
+import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.onegini.examples.resourcegateway.web.ResourcesController;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = AFTER_CLASS)

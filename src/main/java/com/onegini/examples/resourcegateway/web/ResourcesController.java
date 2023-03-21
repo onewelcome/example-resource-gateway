@@ -1,42 +1,26 @@
 package com.onegini.examples.resourcegateway.web;
 
-import static com.onegini.examples.resourcegateway.service.ScopeValidationService.SCOPE_APPLICATION_DETAILS;
-import static com.onegini.examples.resourcegateway.service.ScopeValidationService.SCOPE_READ;
-import static com.onegini.examples.resourcegateway.service.ScopeValidationService.SCOPE_WRITE;
+import com.onegini.examples.resourcegateway.model.*;
+import com.onegini.examples.resourcegateway.service.*;
+import com.onegini.examples.resourcegateway.service.tokenintrospection.TokenIntrospectionService;
+import com.onegini.examples.resourcegateway.util.DecoratedUserIdBuilder;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import static com.onegini.examples.resourcegateway.service.ScopeValidationService.*;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-import com.onegini.examples.resourcegateway.model.ApplicationDetails;
-import com.onegini.examples.resourcegateway.model.DecoratedUser;
-import com.onegini.examples.resourcegateway.model.DeviceList;
-import com.onegini.examples.resourcegateway.model.FormDataWithFiles;
-import com.onegini.examples.resourcegateway.model.MultipartResponse;
-import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
-import com.onegini.examples.resourcegateway.service.AccessTokenExtractor;
-import com.onegini.examples.resourcegateway.service.DeviceApiRequestService;
-import com.onegini.examples.resourcegateway.service.MultipartService;
-import com.onegini.examples.resourcegateway.service.ScopeValidationService;
-import com.onegini.examples.resourcegateway.service.TokenTypeValidationService;
-import com.onegini.examples.resourcegateway.service.tokenintrospection.TokenIntrospectionService;
-import com.onegini.examples.resourcegateway.util.DecoratedUserIdBuilder;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 @Slf4j
 @RestController

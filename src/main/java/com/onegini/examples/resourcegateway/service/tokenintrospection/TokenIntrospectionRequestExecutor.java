@@ -1,25 +1,19 @@
 package com.onegini.examples.resourcegateway.service.tokenintrospection;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
-
-import javax.annotation.Resource;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.onegini.examples.resourcegateway.config.TokenServerConfig;
+import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
+import com.onegini.examples.resourcegateway.model.exception.TokenServerException;
+import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
+import jakarta.annotation.Resource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.onegini.examples.resourcegateway.config.TokenServerConfig;
-import com.onegini.examples.resourcegateway.model.TokenIntrospectionResult;
-import com.onegini.examples.resourcegateway.model.exception.TokenServerException;
-import com.onegini.examples.resourcegateway.util.BasicAuthenticationHeaderBuilder;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 @Service
 public class TokenIntrospectionRequestExecutor {

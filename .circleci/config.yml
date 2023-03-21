@@ -7,7 +7,7 @@ orbs:
   context: dev-context
   executor:
     name: onegini-build/maven-builder
-    tag: "11.0"
+    tag: "17.0-browsers"
 
 .component-type-application: &component-type-application
   component_type: application
