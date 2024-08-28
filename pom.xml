@@ -37,7 +37,7 @@
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
     <onegini-communication-resiliency-starter.version>3.2.2</onegini-communication-resiliency-starter.version>
-    <snakeyaml.version>2.0</snakeyaml.version>
+    <snakeyaml.version>2.2</snakeyaml.version>
     <spring-boot.version>3.0.4</spring-boot.version>
   </properties>
 
