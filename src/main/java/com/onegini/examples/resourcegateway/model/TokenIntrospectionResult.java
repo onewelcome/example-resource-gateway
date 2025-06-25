@@ -18,6 +18,6 @@ public class TokenIntrospectionResult {
   private String appPlatform;
   private String sub;
   private int usageLimit;
-  private Collection<TokenType> amr;
+  private Collection<String> amr;
 
 }
