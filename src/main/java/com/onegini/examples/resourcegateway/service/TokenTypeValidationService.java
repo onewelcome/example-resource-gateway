@@ -2,12 +2,10 @@ package com.onegini.examples.resourcegateway.service;
 
 import static com.onegini.examples.resourcegateway.model.TokenType.IMPLICIT_AUTHENTICATION;
 
-import java.util.Collection;
-
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import com.onegini.examples.resourcegateway.model.exception.InvalidAccessTokenException;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class TokenTypeValidationService {
@@ -25,7 +23,7 @@ public class TokenTypeValidationService {
   }
 
   private boolean isImplicitAuthenticationToken(final Collection<String> amrs) {
-    return CollectionUtils.containsInstance(amrs, IMPLICIT_AUTHENTICATION.name());
+    return amrs != null && amrs.contains(IMPLICIT_AUTHENTICATION.name());
   }
 
   private boolean isNoImplicitAuthenticationToken(final Collection<String> tokenTypes) {
