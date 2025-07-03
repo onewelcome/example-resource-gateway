@@ -13,7 +13,7 @@ import java.util.Set;
 
 class TokenTypeValidationServiceTest {
 
-  private static final String TYPE_IMPLICIT_AUTHENTICATION = "IMPLICIT_AUTHENTICATION";
+  private static final String NOT_IMPLICIT_TYPE = "DEFAULT_TOKEN";
 
   private final TokenTypeValidationService service = new TokenTypeValidationService();
 
@@ -30,7 +30,7 @@ class TokenTypeValidationServiceTest {
     service.validateNoImplicitAuthenticationToken(tokenTypes);
   }
 
-  @ValueSource(strings = TYPE_IMPLICIT_AUTHENTICATION)
+  @ValueSource(strings = NOT_IMPLICIT_TYPE)
   @ParameterizedTest
   void should_validate_as_no_implicit_authentication_token(final String tokenTypes) {
     service.validateNoImplicitAuthenticationToken(Set.of(tokenTypes));
@@ -43,7 +43,7 @@ class TokenTypeValidationServiceTest {
         .isInstanceOf(InvalidAccessTokenException.class);
   }
 
-  @ValueSource(strings = TYPE_IMPLICIT_AUTHENTICATION)
+  @ValueSource(strings = NOT_IMPLICIT_TYPE)
   @ParameterizedTest
   void should_throw_exception_when_validating_other_input_as_implicit_authentication_token(final String tokenType) {
     final Set<String> tokenTypes = Set.of(tokenType);
