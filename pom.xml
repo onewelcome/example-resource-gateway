@@ -33,7 +33,7 @@
 
     <!-- Resource Gateway dependencies -->
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-    <jib-maven-plugin.version>3.4.3</jib-maven-plugin.version>
+    <jib-maven-plugin.version>3.5.1</jib-maven-plugin.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
     <onegini-communication-resiliency-starter.version>3.2.3</onegini-communication-resiliency-starter.version>
