@@ -181,7 +181,7 @@
             <artifactId>jib-maven-plugin</artifactId>
             <configuration>
               <from>
-                <image>gcr.io/distroless/java17-debian11:nonroot</image>
+                <image>gcr.io/distroless/java17-debian12:nonroot</image>
               </from>
               <to>
                 <image>snapshot.onewelcome.com/${docker.groupName}/${docker.imageName}</image>
