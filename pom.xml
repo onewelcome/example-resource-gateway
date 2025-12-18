@@ -38,7 +38,8 @@
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
     <onegini-communication-resiliency-starter.version>3.2.3</onegini-communication-resiliency-starter.version>
     <snakeyaml.version>2.0</snakeyaml.version>
-    <spring-boot.version>3.3.3</spring-boot.version>
+    <spring-boot.version>3.3.13</spring-boot.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
   </properties>
 
   <licenses>
@@ -84,6 +85,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
+      <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
