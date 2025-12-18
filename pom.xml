@@ -186,7 +186,7 @@
                 <image>gcr.io/distroless/java17-debian12:nonroot</image>
               </from>
               <to>
-                <image>snapshot.onewelcome.com/${docker.groupName}/${docker.imageName}</image>
+                <image>europe-docker.pkg.dev/cpl-iam-p-oip-01/docker-release/${docker.groupName}/${docker.imageName}</image>
                 <tags>${project.version},${git.commit.id.describe}</tags>
               </to>
             </configuration>
